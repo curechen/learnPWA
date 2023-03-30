@@ -2,11 +2,11 @@
  * @Author: curechen 981470148@qq.com
  * @Date: 2023-03-29 13:46:24
  * @LastEditors: curechen 981470148@qq.com
- * @LastEditTime: 2023-03-30 10:16:15
- * @FilePath: \workplace\learn\learnPwa\sw2.js
+ * @LastEditTime: 2023-03-30 16:44:33
+ * @FilePath: \workplace\learn\learnPwa\cache.js
  * @Description: 
  */
-const CACHE_NAME = 'cache-v1'
+const CACHE_NAME = 'cache-v5'
 // ServiceWorker实例对象安装时触发监听回调函数
 self.addEventListener('install', event => {
   console.log('install')
@@ -20,8 +20,18 @@ self.addEventListener('install', event => {
 })
 // 安装之后还需要激活
 self.addEventListener('activate', event => {
-  console.log('activate')
-  // event.waitUntil(self.clients.claim())
+  console.log('activate123')
+  // 使新的 service worker 获得页面控制权，从而可以做一些预处理操作，比如缓存文件等
+  event.waitUntil(self.clients.claim())
+  event.waitUntil(caches.keys().then(cacheNames => {
+    return Promise.all(cacheNames.map(cacheName => {
+      if (cacheName !== CACHE_NAME) {
+        console.log('执行了吗1')
+        // 删除旧缓存
+        return caches.delete(cacheName)
+      }
+    }))
+  }))
 })
 // 进行网络请求时触发的回调函数
 self.addEventListener('fetch', event => {
