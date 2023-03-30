@@ -1,0 +1,28 @@
+<!--
+ * @Author: curechen 981470148@qq.com
+ * @Date: 2023-03-29 13:46:17
+ * @LastEditors: curechen 981470148@qq.com
+ * @LastEditTime: 2023-03-30 10:04:43
+ * @FilePath: \workplace\learn\learnPwa\index.html
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learnPwa</title>
+</head>
+<body>
+  <script>
+    navigator.serviceWorker.register('./sw2.js', {
+      scope: '/'
+    }).then(registration => {
+      console.log(registration)
+    }, err => {
+      console.error(err)
+    })
+  </script>
+</body>
+</html>
